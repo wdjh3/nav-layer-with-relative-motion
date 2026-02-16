@@ -27,6 +27,13 @@ ih.OnKeyDown := (ih, vk, sc) => ( !(vk >= 48 && vk <= 57) ? ResetMultiplier() : 
 ~8::capture("8")
 ~9::capture("9")
 ~0::capture("0")
+~Backspace::
+{
+    global multiplierBuffer
+    if (StrLen(multiplierBuffer) > 0) {
+        multiplierBuffer := SubStr(multiplierBuffer, 1, -1)
+    }
+}
 
 capture(num) {
     global multiplierBuffer .= num
