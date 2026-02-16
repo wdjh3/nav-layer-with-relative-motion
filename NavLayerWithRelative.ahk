@@ -9,12 +9,15 @@ global ih := InputHook("L0 V I1") ; L0: no limit, V: visible (don't block), I1: 
 ; This function resets the buffer
 ResetMultiplier(*) {
     global multiplierBuffer := ""
-    ih.Stop()
 }
 
 ; Define what happens when a key is pressed while "counting"
-ih.OnKeyDown := (ih, vk, sc) => ( !(vk >= 48 && vk <= 57) ? ResetMultiplier() : "" )
+ih.OnKeyDown := OnAnyKeyDown
+ih.Start() ; Start listening for a "break" key (non-numeric)
 
+OnAnyKeyDown(ih, vk, sc) {
+    return ( !(vk >=  && vk <= 57) ? ResetMultiplier() : "" )
+}
 ; --- Number Capture ---
 ; We use ~ so the numbers actually type on screen first
 ~1::capture("1")
@@ -30,7 +33,6 @@ ih.OnKeyDown := (ih, vk, sc) => ( !(vk >= 48 && vk <= 57) ? ResetMultiplier() : 
 
 capture(num) {
     global multiplierBuffer .= num
-    ih.Start() ; Start listening for a "break" key (non-numeric)
 }
 
 ; --- Modified Navigation (With Multiplier Support) ---
