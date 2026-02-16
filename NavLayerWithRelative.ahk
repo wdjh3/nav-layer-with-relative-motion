@@ -1,9 +1,13 @@
 ﻿#Requires AutoHotkey v2.0
+; ProcessSetPriority "High"
 
 SetCapsLockState "AlwaysOff"
 
+spamDelay := 1
+
 ; --- Global Variables for Multiplier ---
 global multiplierBuffer := ""
+global isProcessing := false
 global ih := InputHook("L0 V I1") ; L0: no limit, V: visible (don't block), I1: ignore script-sent keys
 
 ; This function resets the buffer
@@ -54,16 +58,18 @@ capture(num) {
 *sc01F up::Send "{Blind}{Alt Up}"
 
 ; --- Navigation (Using {Blind} allows the mods above to pass through) ---
-*sc017:: ExecuteJump("Up")    ; i
-*sc025:: ExecuteJump("Down")  ; k
+*sc017:: ExecuteJump("Up")              ; i
+*sc025:: ExecuteJump("Down")            ; k
 
 *sc024:: {
     ResetMultiplier()
     Send "{Blind}{Left}"
+    Sleep(spamDelay)
 }
 *sc026:: {
     ResetMultiplier()
     Send "{Blind}{Right}"
+    Sleep(spamDelay)
 }
 
 *sc016::Send "{Blind}{Home}"            ; u
@@ -73,6 +79,7 @@ capture(num) {
 
 ExecuteJump(direction) {
     global multiplierBuffer
+
     if (multiplierBuffer != "") {
         count := Integer(multiplierBuffer)
         ; Delete the numbers typed before jumping up/down
@@ -81,5 +88,7 @@ ExecuteJump(direction) {
     } else {
         Send("{Blind}{" . direction . "}")
     }
+
+    Sleep(spamDelay)
 }
 
