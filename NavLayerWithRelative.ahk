@@ -75,13 +75,8 @@ ExecuteJump(direction) {
     global multiplierBuffer
     if (multiplierBuffer != "") {
         count := Integer(multiplierBuffer)
-        ; 1. Delete the numbers typed on screen
-        Send("{BackSpace " . StrLen(multiplierBuffer) . "}")
-        
-        ; 2. Perform the jump (no -1 needed here because we intercepted the key)
-        Loop count {
-            Send("{Blind}{" . direction . "}")
-        }
+        ; Delete the numbers typed before jumping up/down
+        Send("{BackSpace " . StrLen(multiplierBuffer) . "}{Blind}{" . direction . " " . count . "}")
         ResetMultiplier()
     } else {
         Send("{Blind}{" . direction . "}")
