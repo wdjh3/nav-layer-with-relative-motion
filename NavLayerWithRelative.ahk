@@ -16,7 +16,9 @@ ih.OnKeyDown := OnAnyKeyDown
 ih.Start() ; Start listening for a "break" key (non-numeric)
 
 OnAnyKeyDown(ih, vk, sc) {
-    return ( !(vk >=  && vk <= 57) ? ResetMultiplier() : "" )
+    ToolTip(Format("VK:`t{:X}`nSC:`t{:X}", vk, sc), 100, 150)
+
+    SetTimer () => ToolTip(), -1000
 }
 ; --- Number Capture ---
 ; We use ~ so the numbers actually type on screen first
