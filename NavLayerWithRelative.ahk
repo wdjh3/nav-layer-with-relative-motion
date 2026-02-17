@@ -13,6 +13,7 @@ ih.KeyOpt("0123456789{Backspace}{CapsLock}","-N")   ; Allow these keys to retain
 ; This function resets the buffer
 ResetMultiplier(*) {
     global multiplierBuffer := ""
+    UpdateTooltip()
 }
 
 ih.OnKeyDown := OnAnyKeyDown
@@ -40,10 +41,12 @@ OnAnyKeyDown(ih, vk, sc) {
     if (StrLen(multiplierBuffer) > 0) {
         multiplierBuffer := SubStr(multiplierBuffer, 1, -1)
     }
+    UpdateTooltip()
 }
 
 capture(num) {
     global multiplierBuffer .= num
+    UpdateTooltip()
 }
 
 ; --- Modified Navigation (With Multiplier Support) ---
@@ -91,6 +94,16 @@ ExecuteJump(direction) {
     } else {
         Send("{Blind}{" . direction . "}")
     }
+}
+
+; Uncomment this to show multiplierBuffer as a tooltip
+UpdateTooltip() {
+    ; global multiplierBuffer
+    ; if (multiplierBuffer != "") {
+    ;     ToolTip("Jump Buffer: " . multiplierBuffer)
+    ; } else {
+    ;     ToolTip() 
+    ; }
 }
 
 ; Rebooting if deactivated by spam
