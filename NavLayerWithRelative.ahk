@@ -93,3 +93,13 @@ ExecuteJump(direction) {
         Send("{Blind}{" . direction . "}")
     }
 }
+
+; Rebooting if deactivated by spam
+F12::
+{
+    SoundBeep(750, 200)
+    Reload
+}
+
+; Emergency Hatch = Ctrl + Esc
+^Esc::ExitApp
