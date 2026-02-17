@@ -9,20 +9,23 @@ spamDelay := 1
 global multiplierBuffer := ""
 global isProcessing := false
 global ih := InputHook("L0 V I1") ; L0: no limit, V: visible (don't block), I1: ignore script-sent keys
+ih.KeyOpt("{All}","+N")
+ih.KeyOpt("0123456789{Backspace}{CapsLock}","-N")   ; For the easy to assign ones
+
+; Commenting these out seems rife for a race condition, (jump or delete first) but it works
+; ih.KeyOpt(GetKeyName("sc017"),"-N")                 ; i
+; ih.KeyOpt(GetKeyName("sc025"),"-N")                 ; k
 
 ; This function resets the buffer
 ResetMultiplier(*) {
     global multiplierBuffer := ""
 }
 
-; Define what happens when a key is pressed while "counting"
 ih.OnKeyDown := OnAnyKeyDown
-ih.Start() ; Start listening for a "break" key (non-numeric)
+ih.Start() ; Start listening
 
 OnAnyKeyDown(ih, vk, sc) {
-    ToolTip(Format("VK:`t{:X}`nSC:`t{:X}", vk, sc), 100, 150)
-
-    SetTimer () => ToolTip(), -1000
+    ResetMultiplier()
 }
 ; --- Number Capture ---
 ; We use ~ so the numbers actually type on screen first
@@ -95,4 +98,3 @@ ExecuteJump(direction) {
 
     Sleep(spamDelay)
 }
-
