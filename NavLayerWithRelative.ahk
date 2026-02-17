@@ -8,11 +8,7 @@ global multiplierBuffer := ""
 global isProcessing := false
 global ih := InputHook("L0 V I1") ; L0: no limit, V: visible (don't block), I1: ignore script-sent keys
 ih.KeyOpt("{All}","+N")
-ih.KeyOpt("0123456789{Backspace}{CapsLock}","-N")   ; For the easy to assign ones
-
-; Commenting these out seems rife for a race condition, (jump or delete first) but it works
-; ih.KeyOpt(GetKeyName("sc017"),"-N")                 ; i
-; ih.KeyOpt(GetKeyName("sc025"),"-N")                 ; k
+ih.KeyOpt("0123456789{Backspace}{CapsLock}","-N")   ; Allow these keys to retain multiplier buffer
 
 ; This function resets the buffer
 ResetMultiplier(*) {
@@ -90,7 +86,7 @@ ExecuteJump(direction) {
     if (multiplierBuffer != "") {
         count := Integer(multiplierBuffer)
         ; Delete the numbers typed before jumping up/down
-        Send("{BackSpace " . StrLen(multiplierBuffer) . "}{Blind}{" . direction . " " . count . "}")
+        Send("{Blind}{BackSpace " . StrLen(multiplierBuffer) . "}{Blind}{" . direction . " " . count . "}")
         ResetMultiplier()
     } else {
         Send("{Blind}{" . direction . "}")
