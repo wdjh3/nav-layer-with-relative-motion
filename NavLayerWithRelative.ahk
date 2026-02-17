@@ -1,4 +1,5 @@
 ﻿#Requires AutoHotkey v2.0
+A_MaxHotkeysPerInterval := 200
 ProcessSetPriority "High"
 
 SetCapsLockState "AlwaysOff"
@@ -53,14 +54,14 @@ capture(num) {
 #HotIf GetKeyState("CapsLock", "P")
 
 ; --- Modifiers (Using * to allow them to work with each other) ---
-*sc021::Send "{Blind}{Control DownR}"   ; f
-*sc021 up::Send "{Blind}{Control Up}"   
+*$sc021::Send "{Blind}{Control DownR}"   ; f
+*$sc021 up::Send "{Blind}{Control Up}"   
 
-*sc020::Send "{Blind}{Shift DownR}"     ; d
-*sc020 up::Send "{Blind}{Shift Up}"
+*$sc020::Send "{Blind}{Shift DownR}"     ; d
+*$sc020 up::Send "{Blind}{Shift Up}"
 
-*sc01F::Send "{Blind}{Alt DownR}"       ; s
-*sc01F up::Send "{Blind}{Alt Up}"
+*$sc01F::Send "{Blind}{Alt DownR}"       ; s
+*$sc01F up::Send "{Blind}{Alt Up}"
 
 ; --- Navigation (Using {Blind} allows the mods above to pass through) ---
 *sc017:: ExecuteJump("Up")              ; i
@@ -82,6 +83,8 @@ capture(num) {
 *sc023::Send "{Blind}{PgDn}"            ; h
 
 #HotIf
+
+
 
 ExecuteJump(direction) {
     global multiplierBuffer
