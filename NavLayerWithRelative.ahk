@@ -1,9 +1,7 @@
 ﻿#Requires AutoHotkey v2.0
-; ProcessSetPriority "High"
+ProcessSetPriority "High"
 
 SetCapsLockState "AlwaysOff"
-
-spamDelay := 1
 
 ; --- Global Variables for Multiplier ---
 global multiplierBuffer := ""
@@ -27,6 +25,7 @@ ih.Start() ; Start listening
 OnAnyKeyDown(ih, vk, sc) {
     ResetMultiplier()
 }
+
 ; --- Number Capture ---
 ; We use ~ so the numbers actually type on screen first
 ~1::capture("1")
@@ -71,12 +70,10 @@ capture(num) {
 *sc024:: {
     ResetMultiplier()
     Send "{Blind}{Left}"
-    Sleep(spamDelay)
 }
 *sc026:: {
     ResetMultiplier()
     Send "{Blind}{Right}"
-    Sleep(spamDelay)
 }
 
 *sc016::Send "{Blind}{Home}"            ; u
@@ -95,6 +92,4 @@ ExecuteJump(direction) {
     } else {
         Send("{Blind}{" . direction . "}")
     }
-
-    Sleep(spamDelay)
 }
