@@ -79,6 +79,9 @@ capture(num) {
 *sc016::Send "{Blind}{Home}"            ; u
 *sc018::Send "{Blind}{End}"             ; o
 
+*sc015::Send "{Blind}{PgUp}"            ; y
+*sc023::Send "{Blind}{PgDn}"            ; h
+
 #HotIf
 
 ExecuteJump(direction) {
