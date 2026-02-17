@@ -64,23 +64,23 @@ capture(num) {
 *$sc01F up::Send "{Blind}{Alt Up}"
 
 ; --- Navigation (Using {Blind} allows the mods above to pass through) ---
-*sc017:: ExecuteJump("Up")              ; i
-*sc025:: ExecuteJump("Down")            ; k
+*$sc017:: ExecuteJump("Up")              ; i
+*$sc025:: ExecuteJump("Down")            ; k
 
-*sc024:: {
+*$sc024:: {
     ResetMultiplier()
     Send "{Blind}{Left}"
 }
-*sc026:: {
+*$sc026:: {
     ResetMultiplier()
     Send "{Blind}{Right}"
 }
 
-*sc016::Send "{Blind}{Home}"            ; u
-*sc018::Send "{Blind}{End}"             ; o
+*$sc016::Send "{Blind}{Home}"            ; u
+*$sc018::Send "{Blind}{End}"             ; o
 
-*sc015::Send "{Blind}{PgUp}"            ; y
-*sc023::Send "{Blind}{PgDn}"            ; h
+*$sc015::Send "{Blind}{PgUp}"            ; y
+*$sc023::Send "{Blind}{PgDn}"            ; h
 
 #HotIf
 
