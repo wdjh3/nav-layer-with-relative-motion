@@ -84,7 +84,13 @@ capture(num) {
 
 #HotIf
 
-
+*CapsLock up::
+{
+    if !GetKeyState("LControl", "P")
+        Send "{Blind}{LControl Up}"
+    if !GetKeyState("LShift", "P")
+        Send "{Blind}{LShift Up}"
+}
 
 ExecuteJump(direction) {
     global multiplierBuffer
