@@ -17,7 +17,7 @@ ResetMultiplier(*) {
     UpdateTooltip()
 }
 
-ih.OnKeyDown := OnAnyKeyDown
+ih.OnKeyDown := (ih, vk, sc) => ResetMultiplier()
 ih.Start() ; Start listening
 
 OnAnyKeyDown(ih, vk, sc) {
@@ -54,14 +54,14 @@ capture(num) {
 #HotIf GetKeyState("CapsLock", "P")
 
 ; --- Modifiers (Using * to allow them to work with each other) ---
-*$sc021::Send "{Blind}{Control DownR}"   ; f
-*$sc021 up::Send "{Blind}{Control Up}"   
+*$sc021::SendEvent "{Blind}{Control DownR}"   ; f
+*$sc021 up::SendEvent "{Blind}{Control Up}"   
 
-*$sc020::Send "{Blind}{Shift DownR}"     ; d
-*$sc020 up::Send "{Blind}{Shift Up}"
+*$sc020::SendEvent "{Blind}{Shift DownR}"     ; d
+*$sc020 up::SendEvent "{Blind}{Shift Up}"
 
-*$sc01F::Send "{Blind}{Alt DownR}"       ; s
-*$sc01F up::Send "{Blind}{Alt Up}"
+*$sc01F::SendEvent "{Blind}{Alt DownR}"       ; s
+*$sc01F up::SendEvent "{Blind}{Alt Up}"
 
 ; --- Navigation (Using {Blind} allows the mods above to pass through) ---
 *$sc017:: ExecuteJump("Up")              ; i
@@ -69,18 +69,18 @@ capture(num) {
 
 *$sc024:: {
     ResetMultiplier()
-    Send "{Blind}{Left}"
+    SendEvent "{Blind}{Left}"
 }
 *$sc026:: {
     ResetMultiplier()
-    Send "{Blind}{Right}"
+    SendEvent "{Blind}{Right}"
 }
 
-*$sc016::Send "{Blind}{Home}"            ; u
-*$sc018::Send "{Blind}{End}"             ; o
+*$sc016::SendEvent "{Blind}{Home}"            ; u
+*$sc018::SendEvent "{Blind}{End}"             ; o
 
-*$sc015::Send "{Blind}{PgUp}"            ; y
-*$sc023::Send "{Blind}{PgDn}"            ; h
+*$sc015::SendEvent "{Blind}{PgUp}"            ; y
+*$sc023::SendEvent "{Blind}{PgDn}"            ; h
 
 #HotIf
 
