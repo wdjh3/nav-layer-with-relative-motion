@@ -50,10 +50,11 @@ capture(num) {
     UpdateTooltip()
 }
 
-; --- Modified Navigation (With Multiplier Support) ---
+
+; --- Navigation Layer ---
 #HotIf GetKeyState("CapsLock", "P")
 
-; --- Modifiers (Using * to allow them to work with each other) ---
+; --- Modifiers ---
 *$sc021::SendEvent "{Blind}{Control DownR}"   ; f
 *$sc021 up::SendEvent "{Blind}{Control Up}"   
 
@@ -63,7 +64,7 @@ capture(num) {
 *$sc01F::SendEvent "{Blind}{Alt DownR}"       ; s
 *$sc01F up::SendEvent "{Blind}{Alt Up}"
 
-; --- Navigation (Using {Blind} allows the mods above to pass through) ---
+; --- Navigation ---
 *$sc017:: ExecuteJump("Up")              ; i
 *$sc025:: ExecuteJump("Down")            ; k
 
@@ -82,6 +83,47 @@ capture(num) {
 *$sc015::SendEvent "{Blind}{PgUp}"            ; y
 *$sc023::SendEvent "{Blind}{PgDn}"            ; h
 
+; --- Switching numerics for Function keys ---
+*1::SendEvent "{Blind}{F1}"                 ; 1
+*2::SendEvent "{Blind}{F2}"                 ; 2
+*3::SendEvent "{Blind}{F3}"                 ; 3
+*4::SendEvent "{Blind}{F4}"                 ; 4
+*5::SendEvent "{Blind}{F5}"                 ; 5
+*6::SendEvent "{Blind}{F6}"                 ; 6
+*7::SendEvent "{Blind}{F7}"                 ; 7
+*8::SendEvent "{Blind}{F8}"                 ; 8
+*9::SendEvent "{Blind}{F9}"                 ; 9
+*0::SendEvent "{Blind}{F10}"                ; 0
+*-::SendEvent "{Blind}{F11}"                ; -
+*=::SendEvent "{Blind}{F12}"                ; =
+
+; --- Delete keys ---
+; *sc019::SendEvent "{Blind}{Delete}"         ; p
+; *sc027::SendEvent "{Blind}{Backspace}"      ; ;
+
+; --- Home Row Extensions ---
+*sc01A::SendEvent "{Blind}{Escape}"         ; [
+*sc031::SendEvent "{Blind}{Tab}"            ; n
+*sc028::SendEvent "{Blind}{Enter}"          ; '
+
+; === Macros ===
+
+; sc013::SendEvent "^r"                       ; r -> Run in VSCode, reload page in chrome
+; sc011::SendEvent "^t"                       ; w -> New tab
+; sc01E::SendEvent "^a"                       ; a -> Select All
+; sc02B::SendEvent "^``"                      ; \(Backslash) -> Toggle terminal
+; sc010::SendEvent "^w"                       ; q -> Close Tab (Low priority reach)
+; sc014::SendEvent "^f"                       ; t -> Search text
+; sc032::SendEvent "^s"                       ; m -> Save file
+; sc035::SendEvent "^/"                       ; / -> Toggle Comment Code
+; sc022::SendEvent "{AppsKey}"                ; g -> Show Menu like Right clicking
+
+; --- ^ZXCV combos ---
+; sc02C::SendEvent "^z"                       ; z
+; sc02D::SendEvent "^x"                       ; x
+; sc02E::SendEvent "^c"                       ; c
+; sc02F::SendEvent "^v"                       ; v
+
 #HotIf
 
 *CapsLock up::
@@ -90,6 +132,8 @@ capture(num) {
         Send "{Blind}{LControl Up}"
     if !GetKeyState("LShift", "P")
         Send "{Blind}{LShift Up}"
+    if !GetKeyState("LAlt", "P")
+        Send "{Blind}{LAlt Up}"
 }
 
 ExecuteJump(direction) {
